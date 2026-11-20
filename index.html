@@ -88,10 +88,10 @@ function tone(freq,start,duration,type='sine',volume=.04){
  gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(volume,start+.025);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);
  osc.connect(gain);gain.connect(c.destination);osc.start(start);osc.stop(start+duration+.03);
 }
-function playCorrectSound(){const c=audioReady();if(!c||!audioEnabled)return;const t=c.currentTime+.02;[[523.25,0],[659.25,.13],[783.99,.26],[1046.5,.43]].forEach(([f,d])=>tone(f,t+d,.32,'sine',.055));}
-function playIncorrectSound(){const c=audioReady();if(!c||!audioEnabled)return;const t=c.currentTime+.02;[[392,.0],[329.63,.2]].forEach(([f,d])=>tone(f,t+d,.24,'triangle',.035));}
+function playCorrectSound(){const c=audioReady();if(!c||!audioEnabled)return;const t=c.currentTime+.02;[[523.25,0],[659.25,.13],[783.99,.26],[1046.5,.43]].forEach(([f,d])=>tone(f,t+d,.32,'sine',.14));}
+function playIncorrectSound(){const c=audioReady();if(!c||!audioEnabled)return;const t=c.currentTime+.02;[[392,.0],[329.63,.2]].forEach(([f,d])=>tone(f,t+d,.24,'triangle',.10));}
 const melody=[523.25,659.25,783.99,659.25,587.33,698.46,783.99,698.46,523.25,659.25,783.99,1046.5,783.99,698.46,659.25,587.33];
-function startMusic(){const c=audioReady();if(!c||!audioEnabled||musicTimer)return;musicStep=0;musicTimer=setInterval(()=>{if(!audioEnabled||!audioCtx)return;const t=audioCtx.currentTime+.02;const f=melody[musicStep%melody.length];tone(f,t,.48,'sine',.012);if(musicStep%4===0)tone(f/2,t,.58,'triangle',.008);musicStep++;},520);}
+function startMusic(){const c=audioReady();if(!c||!audioEnabled||musicTimer)return;musicStep=0;musicTimer=setInterval(()=>{if(!audioEnabled||!audioCtx)return;const t=audioCtx.currentTime+.02;const f=melody[musicStep%melody.length];tone(f,t,.48,'sine',.05);if(musicStep%4===0)tone(f/2,t,.58,'triangle',.028);musicStep++;},520);}
 function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
 function toggleAudio(){audioEnabled=!audioEnabled;const b=document.getElementById('audioToggle');b.textContent=audioEnabled?'🔊 Sonido activado':'🔇 Sonido apagado';b.setAttribute('aria-pressed',String(audioEnabled));if(audioEnabled){audioReady();if(!document.getElementById('start').classList.contains('hidden')===false)startMusic();}else stopMusic();}
 
